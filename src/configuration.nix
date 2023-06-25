@@ -2,44 +2,57 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running `nixos-help`).
 
-{ config, pkgs, ... }:
+{ inputs, config, pkgs, ... }:
 
 {
+  nix.settings.experimental-features = ["nix-command" "flakes"];
+
   imports =
-    [ # Include the results of the hardware scan.
+    [
       ./hardware-configuration.nix
       ./boot.nix
-      ./networking.nix
       ./locale.nix
+      ./networking.nix
+      ./monitoring.nix
       ./vscode-server.nix
       ./home-manager.nix
       ./users.nix
     ];
-
-
-  # Enable CUPS to print documents.
-  # services.printing.enable = true;
-
-  # Enable sound.
-  # sound.enable = true;
-  # hardware.pulseaudio.enable = true;
-
-  # Enable touchpad support (enabled default in most desktopManager).
-  # services.xserver.libinput.enable = true;
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     vim
     wget
-    cockpit
+    # cockpit
     nodejs
     git
+    podman
   ];
 
-  services.cockpit = {
+  # services.cockpit = {
+  #   enable = true;
+  #   port = 9090;
+  # };
+
+  services.openssh = {
     enable = true;
-    port = 9090;
+  };
+
+  virtualisation = {
+    podman = {
+      enable = true;
+      defaultNetwork.settings = {
+        dns_enabled = true;
+      };
+    };
+
+    oci-containers = {
+      backend = "podman";
+      containers = {
+
+      };
+    };
   };
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -49,11 +62,6 @@
   #   enable = true;
   #   enableSSHSupport = true;
   # };
-
-  # List services that you want to enable:
-
-  # Enable the OpenSSH daemon.
-  services.openssh.enable = true;
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];

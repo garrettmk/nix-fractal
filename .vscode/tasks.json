@@ -6,12 +6,20 @@
     {
       "label": "build",
       "type": "shell",
-      "command": "NIXOS_CONFIG=$(pwd)/configuration.nix nixos-rebuild build"
+      "command": "NIXOS_CONFIG=$(pwd)/src/configuration.nix nixos-rebuild build"
     },
     {
       "label": "deploy",
       "type": "shell",
-      "command": "sudo cp *.nix /etc/nixos && sudo nixos-rebuild switch"
+      "command": "sudo rm -rf /etc/nixos/* && sudo cp -r ./src/* /etc/nixos && sudo nixos-rebuild switch",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": true,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      }
     }
   ]
 }
