@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running `nixos-help`).
 
-{ inputs, config, pkgs, ... }:
+{ inputs, pkgs, ... }:
 
 {
   nix.settings.experimental-features = ["nix-command" "flakes"];
@@ -11,6 +11,7 @@
     [
       ./hardware-configuration.nix
       ./boot.nix
+      ./storage.nix
       ./locale.nix
       ./networking.nix
       ./monitoring.nix
