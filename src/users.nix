@@ -2,7 +2,7 @@
 
 let
   fractal = config.fractal;
-  stateVersion = system.stateVersion;
+  stateVersion = config.system.stateVersion;
 in {
   users.users.garrett = {
     isNormalUser = true;

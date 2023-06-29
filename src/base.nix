@@ -1,4 +1,4 @@
-{ inputs, pkgs, ... }:
+{ config, pkgs, ... }:
 
 let
   fractal = config.fractal;
@@ -9,7 +9,6 @@ in {
     vim
     nano
     wget
-    podman
     git
   ];
 
@@ -20,20 +19,5 @@ in {
   # Make sure we have SSH
   services.openssh = {
     enable = true;
-  };
-
-  # Set up podman
-  virtualisation = {
-    podman = {
-      enable = true;
-      defaultNetwork.settings = {
-        dns_enabled = true;
-      };
-    };
-
-    oci-containers = {
-      backend = "podman";
-      containers = {};
-    };
   };
 }

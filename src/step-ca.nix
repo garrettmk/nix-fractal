@@ -2,7 +2,7 @@
 
 let
   fractal = config.fractal;
-  stateVersion = system.stateVersion;
+  stateVersion = config.system.stateVersion;
 in {
   systemd.tmpfiles.rules = [
     "d ${fractal.step-ca.dataPath} 777"

@@ -9,17 +9,17 @@
     ];
 
   boot.initrd.availableKernelModules = [ "ahci" "xhci_pci" "virtio_pci" "sr_mod" "virtio_blk" ];
-  boot.initrd.kernelModules = [ ];
+  boot.initrd.kernelModules = [ "dm-snapshot" ];
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/bf4f8ac9-c88c-486b-afde-a1bc881d6653";
+    { device = "/dev/disk/by-uuid/d87301cb-865f-494b-8938-aeb29b1e6b59";
       fsType = "xfs";
     };
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/BB4A-D166";
+    { device = "/dev/disk/by-uuid/C8D7-4C1D";
       fsType = "vfat";
     };
 
