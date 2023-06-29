@@ -1,6 +1,9 @@
 { config, pkgs, ... }:
 
-{
+let
+  fractal = config.fractal;
+  stateVersion = system.stateVersion;
+in {
   users.users.garrett = {
     isNormalUser = true;
     extraGroups = ["wheel"];
@@ -11,7 +14,7 @@
   };
 
   home-manager.users.garrett = {
-    home.stateVersion = "23.05";
+    home.stateVersion = stateVersion;
     programs = {
       git = {
         enable = true;

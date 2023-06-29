@@ -1,6 +1,7 @@
 { config, pkgs, ... }:
 
 {
+  # Set up the pre-existing RAID
   environment.systemPackages = with pkgs; [
     mdadm
   ];
