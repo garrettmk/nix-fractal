@@ -20,6 +20,19 @@
         "showReuseMessage": true,
         "clear": false
       }
+    },
+    {
+      "label": "deploy-from-cache",
+      "type": "shell",
+      "command": "sudo rm -rf /etc/nixos/* && sudo cp -r ./src/* /etc/nixos && sudo nixos-rebuild switch --option build-use-sandbox false",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": true,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      }
     }
   ]
 }
