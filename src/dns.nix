@@ -3,6 +3,16 @@
 let
   fractal = config.fractal;
 in {
+  # Add ourselves and other known hosts to the hosts
+  # file so we can refer to them by name
+  networking.hosts = {
+    "192.168.0.11" = ["caladan.home"];
+    "${fractal.hostIp}" = [
+      "${fractal.hostDomain}"
+      "${fractal.pihole.domain}"
+    ];
+  };
+
   # Run pihole in a podman container
   virtualisation.oci-containers.containers.pihole = {
     image = "docker.io/pihole/pihole";
@@ -16,6 +26,7 @@ in {
       "--cap-add=NET_ADMIN"
       "--ip=${fractal.pihole.ip}"
       "--dns=127.0.0.1"
+      "--dns=1.1.1.1"
     ];
   };
 
@@ -24,8 +35,12 @@ in {
     enable = true;
     domains = ["~."];
     
-    # Use only the Pihole container for DNS resolution
+    # Use the Pihole container for DNS resolution
     # Tell the stub listener to allow DNS queries from the local network
+    # If pihole is unavailable, the fallback servers are used
+    # To *only* use pihole for DNS resolution, add the line:
+    #
+    # FallbackDNS=
     extraConfig = ''
       [Resolve]
       DNS=${fractal.pihole.ip}
@@ -36,9 +51,10 @@ in {
 
   # Proxy a subdomain to the container
   services.nginx = {
-    enable = true;
     virtualHosts = {
-      "pihole.${fractal.hostDomain}" = {
+      "${fractal.pihole.domain}" = {
+        forceSSL = true;
+        enableACME = true;
         locations = {
           # Redirect root to the login page
           "= /" = {

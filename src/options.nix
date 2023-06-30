@@ -17,15 +17,17 @@ in {
       timeZone = "America/Los_Angeles";
       locale = "en_US.UTF-8";
       
-      localTld = "home";
+      hostTLD = "home";
       hostName = "nix-fractal";
-      hostDomain = "${hostName}.${localTld}";
+      hostDomain = "${hostName}.${hostTLD}";
       hostIp = "192.168.122.19";
 
-      step-ca = {
+      ca = {
         dataPath = "/mnt/storage/backup/step-ca";
-        ip = "192.168.100.21";
-        domain = "ca.${hostDomain}";
+        ip = hostIp;
+        port = 9443;
+        # domain = "ca.${hostDomain}";
+        domain = "ca-nix-fractal.home";
       };
 
       grafana = {
@@ -38,6 +40,7 @@ in {
         ip = "10.88.0.53";
         domain = "pihole.${hostDomain}";
         adminPassword = adminPassword;
+        fallbackDNS = "192.168.122.1";
       };
 
       nextcloud = {

@@ -26,13 +26,6 @@ in {
     #   ];
     # };
 
-    # Add ourselves and other known hosts to the hosts
-    # file so we can refer to the by name
-    hosts = {
-      "192.168.0.11" = ["caladoon.home"];
-      "${fractal.hostIp}" = ["${fractal.hostDomain}"];
-    };
-
     # Of course
     firewall = {
       enable = true;
@@ -44,5 +37,6 @@ in {
   # nginx
   services.nginx = {
     enable = true;
+    recommendedProxySettings = true;
   };
 }

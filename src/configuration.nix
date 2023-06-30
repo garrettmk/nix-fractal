@@ -10,16 +10,16 @@
       ./options.nix
       ./hardware-configuration.nix
       ./boot.nix
+      ./base.nix
+      ./containers.nix
+      ./home-manager.nix
+      ./users.nix
       ./storage.nix
       ./networking.nix
-      # ./certificates.nix
-      # ./containers.nix
-      ./base.nix
-      # ./home-manager.nix
-      # ./users.nix
-      # ./step-ca.nix
-      # ./pihole.nix
-      # ./monitoring.nix
+      ./dns.nix
+      ./ca.nix
+      ./acme.nix
+      ./monitoring.nix
       # ./vscode-server.nix
       # ./nextcloud.nix
     ];

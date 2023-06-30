@@ -1,6 +1,10 @@
 { config, pkgs, ... }:
 
-{
+let
+  fractal = config.fractal;
+in {
+
+  # Install packages
   environment.systemPackages = with pkgs; [
     podman
   ];

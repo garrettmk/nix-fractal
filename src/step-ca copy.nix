@@ -5,11 +5,11 @@ let
   stateVersion = config.system.stateVersion;
 in {
   systemd.tmpfiles.rules = [
-    "d ${fractal.step-ca.dataPath} 777"
+    "d ${fractal.ca.dataPath} 777"
   ];
 
   networking.hosts = {
-    "192.168.100.21" = [ fractal.step-ca.domain ];
+    "192.168.100.21" = [ fractal.ca.domain ];
   };
 
   containers.step-ca = {
@@ -17,11 +17,11 @@ in {
     autoStart = true;
     privateNetwork = true;
     hostAddress = "192.168.100.20";
-    localAddress = fractal.step-ca.ip;
+    localAddress = fractal.ca.ip;
 
     bindMounts = {
       "/var/lib/private/step-ca" = {
-        hostPath = "${fractal.step-ca.dataPath}";
+        hostPath = "${fractal.ca.dataPath}";
         isReadOnly = false;
       };
     };
@@ -44,7 +44,7 @@ in {
       networking = {
         firewall.enable = false;
         hosts = {
-          "127.0.0.1" = [ fractal.step-ca.domain ];
+          "127.0.0.1" = [ fractal.ca.domain ];
         };
       };
 
@@ -63,7 +63,7 @@ in {
             "address": ":443",
             "insecureAddress": "",
             "dnsNames": [
-              "${fractal.step-ca.domain}"
+              "${fractal.ca.domain}"
             ],
             "logger": {
               "format": "text"

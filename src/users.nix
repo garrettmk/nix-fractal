@@ -4,6 +4,8 @@ let
   fractal = config.fractal;
   stateVersion = config.system.stateVersion;
 in {
+
+  # Make an admin user
   users.users.garrett = {
     isNormalUser = true;
     extraGroups = ["wheel"];
@@ -13,6 +15,7 @@ in {
     ];
   };
 
+  # Set up some git defaults
   home-manager.users.garrett = {
     home.stateVersion = stateVersion;
     programs = {
