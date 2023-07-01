@@ -19,7 +19,7 @@
       ./dns.nix
       ./ca.nix
       ./acme.nix
-      ./monitoring.nix
+      # ./monitoring.nix
       # ./vscode-server.nix
       # ./nextcloud.nix
     ];

@@ -10,21 +10,6 @@ in {
     "${fractal.ca.ip}" = [ fractal.ca.domain ];
   };
 
-  # networking.firewall = {
-  #   allowedTCPPorts = [ 9443 ];
-  # };
-
-  # services.nginx.virtualHosts = {
-  #   "${fractal.ca.domain}" = {
-  #     locations = {
-  #       "/" = {
-  #         recommendedProxySettings = true;
-  #         proxyPass = "https://${fractal.ca.ip}:${toString fractal.ca.port}";
-  #       };
-  #     };
-  #   };
-  # };
-
   # Install necessary packages
   environment.systemPackages = with pkgs; [
     step-ca
@@ -35,8 +20,6 @@ in {
   systemd.units."step-ca.service" = let
     initScript = pkgs.writeScriptBin "step-ca-init" ''
       #!/run/current-system/sw/bin/bash
-      PATH=/run/current-system/sw/bin
-      STEPPATH=/root/.step
 
       if [ -d "$STEPPATH" ]; then
         echo "step-ca already initialized, exiting"
@@ -60,8 +43,6 @@ in {
 
     serviceScript = pkgs.writeScriptBin "step-ca-run" ''
       #!/run/current-system/sw/bin/bash
-      PATH=/run/current-system/sw/bin
-      STEPPATH=/root/.step
 
       step-ca --password-file=/etc/pki/keys/step-ca-password
     '';
@@ -74,6 +55,8 @@ in {
 
       [Service]
       Type=simple
+      Environment="PATH=/run/current-system/sw/bin"
+      Environment="STEPPATH=/root/.step"
       ExecStartPre=${initScript}/bin/step-ca-init
       ExecStart=${serviceScript}/bin/step-ca-run
     '';
