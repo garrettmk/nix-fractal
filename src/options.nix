@@ -22,6 +22,13 @@ in {
       hostDomain = "${hostName}.${hostTLD}";
       hostIp = "192.168.122.19";
 
+      secretsPath = "/var/lib/secrets";
+
+      adminUser = {
+        name = "garrett";
+        fullName = "Garrett Myrick";
+      };
+
       ca = {
         dataPath = "/mnt/storage/backup/step-ca";
         ip = hostIp;
@@ -43,12 +50,11 @@ in {
         fallbackDNS = "192.168.122.1";
       };
 
-      nextcloud = {
-        ip = hostIp;
-        domain = "nextcloud.${hostDomain}";
-        adminPassword = adminPassword;
-        dataPath = "/mnt/storage/backup/nextcloud";
-      };
+      # nextcloud = {
+      #   ip = "10.99.0.10";
+      #   domain = "nextcloud.${hostDomain}";
+      #   dataPath = "/mnt/storage/backup/nextcloud";
+      # };
     };
   };
 }

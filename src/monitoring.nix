@@ -84,8 +84,8 @@ in {
 
   services.nginx.virtualHosts = {
     "${fractal.grafana.domain}" = {
-      forceSSL = true;
-      enableACME = true;
+      # forceSSL = true;
+      # enableACME = true;
       locations = {
         "/" = {
           recommendedProxySettings = true;

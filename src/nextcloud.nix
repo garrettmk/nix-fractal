@@ -4,6 +4,7 @@ let
   fractal = config.fractal;
   stateVersion = config.system.stateVersion;
 in {
+
   systemd.tmpfiles.rules = [
     "d ${fractal.nextcloud.dataPath}/nextcloud"
     "d ${fractal.nextcloud.dataPath}/postgresql"
@@ -13,10 +14,8 @@ in {
     ephemeral = true;
     autoStart = true;
     privateNetwork = true;
-    hostAddress = "192.168.100.10";
-    localAddress = "192.168.100.11";
-    hostAddress6 = "fc00::1";
-    localAddress6 = "fc00::2";
+    hostAddress = fractal.nextcloud.ip;
+    localAddress = "10.99.0.11";
 
     bindMounts = {
       "/var/lib/nextcloud" = {
@@ -30,16 +29,10 @@ in {
       };
     };
 
-    # Is this even doing anything?
-    extraFlags = [
-      "--private-users=yes"
-      # "--bind=${fractal.nextcloud.dataPath}/nextcloud:/var/lib/nextcloud:rbind,rootidmap"
-      # "--bind=${fractal.nextcloud.dataPath}/postgresql:/var/lib/postgresql:rbind,rootidmap"
-    ];
-
     config = { config, pkgs, ... }: {
       system.stateVersion = stateVersion;
       environment.etc."resolv.conf".text = "nameserver ${fractal.hostIp}";
+      
       networking.firewall = {
         enable = true;
         allowedTCPPorts = [ 80 443 ];
@@ -48,10 +41,10 @@ in {
       services.nextcloud = {
         enable = true;
         package = pkgs.nextcloud26;
-        hostName = "nextcloud.${fractal.hostDomain}";
+        hostName = fractal.nextcloud.domain;
         configureRedis = true;
         caching.apcu = false;
-        config.adminpassFile = "${pkgs.writeText "adminpass" fractal.nextcloud.adminPassword}";
+        config.adminpassFile = "${fractal.secretsPath}/nextcloud-admin-password";
         config.dbtype = "pgsql";
         database.createLocally = true;
         extraOptions = {
@@ -62,17 +55,21 @@ in {
     };
   };
 
+  networking.hosts = {
+    "${fractal.hostIp}" = [ fractal.nextcloud.domain ];
+  };
+
   # nginx/acme
   services.nginx = {
     enable = true;
     virtualHosts = {
-      "nextcloud.${fractal.hostDomain}" = {
+      "${fractal.nextcloud.domain}" = {
         forceSSL = true;
         enableACME = true;
         locations = {
           "/" = {
             recommendedProxySettings = true;
-            proxyPass = "http://192.168.100.11/";
+            proxyPass = "http://${fractal.nextcloud.ip}";
             proxyWebsockets = true;
           };
         };

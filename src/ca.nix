@@ -5,6 +5,8 @@ let
   stateVersion = config.system.stateVersion;
 in {
 
+  networking.firewall.allowedTCPPorts = [ fractal.ca.port ];
+
   # Add the CA to hosts
   networking.hosts = {
     "${fractal.ca.ip}" = [ fractal.ca.domain ];
@@ -25,10 +27,6 @@ in {
         echo "step-ca already initialized, exiting"
         exit 0
       fi
-
-      mkdir -p /etc/pki/keys
-      echo 'h1|.VI.xP=MUi!!@}e!6M_F#y[p>cW}{' > /etc/pki/keys/step-ca-password
-      echo 'h1|.VI.xP=MUi!!@}e!6M_F#y[p>abc2' > /etc/pki/keys/step-ca-provisioner-password
       
       step ca init \
         --deployment-type=standalone \
@@ -37,14 +35,14 @@ in {
         --address=${fractal.ca.ip}:${toString fractal.ca.port} \
         --provisioner=admin@${fractal.hostDomain} \
         --acme \
-        --password-file=/etc/pki/keys/step-ca-password \
-        --provisioner-password-file=/etc/pki/keys/step-ca-provisioner-password
+        --password-file=${fractal.secretsPath}/step-ca-password \
+        --provisioner-password-file=${fractal.secretsPath}/step-ca-provisioner-password
     '';
 
     serviceScript = pkgs.writeScriptBin "step-ca-run" ''
       #!/run/current-system/sw/bin/bash
 
-      step-ca --password-file=/etc/pki/keys/step-ca-password
+      step-ca --password-file=${fractal.secretsPath}/step-ca-password
     '';
   in {
     enable = true;

@@ -11,7 +11,7 @@
     {
       "label": "deploy",
       "type": "shell",
-      "command": "sudo rm -rf /etc/nixos/* && sudo cp -r ./src/* /etc/nixos && sudo nixos-rebuild switch",
+      "command": "sudo ${workspaceFolder}/rebuild-switch.sh",
       "presentation": {
         "echo": true,
         "reveal": "always",
