@@ -39,5 +39,22 @@ in {
     enable = true;
     recommendedProxySettings = true;
     recommendedTlsSettings = true;
+    # recommendedOptimisation = true;
+    # recommendedGzipSettings = true;
+
+    defaultListenAddresses = [
+      fractal.hostIp
+    ];
+
+    virtualHosts."default" = {
+      default = true;
+      serverName = "_";
+
+      locations = {
+        "/" = {
+          return = "404";
+        };
+      };
+    };
   };
 }

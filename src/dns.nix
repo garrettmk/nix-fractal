@@ -53,8 +53,8 @@ in {
   services.nginx = {
     virtualHosts = {
       "${fractal.pihole.domain}" = {
-        # forceSSL = true;
-        # enableACME = true;
+        forceSSL = true;
+        enableACME = true;
         locations = {
           # Redirect root to the login page
           "= /" = {
@@ -65,7 +65,6 @@ in {
 
           # Pass everything to the container
           "/" = {
-            recommendedProxySettings = true;
             proxyPass = "http://${fractal.pihole.ip}/";
             proxyWebsockets = true;
           };

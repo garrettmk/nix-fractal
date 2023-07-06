@@ -1,4 +1,4 @@
 result
 secrets
-*.crt
+tmp
 *.key

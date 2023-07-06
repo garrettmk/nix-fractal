@@ -23,6 +23,7 @@ in {
       hostIp = "192.168.122.19";
 
       secretsPath = "/var/lib/secrets";
+      dataPath = "/mnt/storage/backup";
 
       adminUser = {
         name = "garrett";
@@ -30,17 +31,20 @@ in {
       };
 
       ca = {
-        dataPath = "/mnt/storage/backup/step-ca";
-        ip = hostIp;
         port = 9443;
-        # domain = "ca.${hostDomain}";
         domain = "ca-nix-fractal.home";
+        dataPath = "/mnt/storage/backup/ca";
+      };
+
+      prometheus = {
+        ip = hostIp;
+        port = 9002;
       };
 
       grafana = {
-        ip = hostIp;
+        port = 9010;
         domain = "grafana.${hostDomain}";
-        adminPassword = adminPassword;
+        dataPath = "${dataPath}/grafana";
       };
 
       pihole = {
@@ -50,11 +54,11 @@ in {
         fallbackDNS = "192.168.122.1";
       };
 
-      # nextcloud = {
-      #   ip = "10.99.0.10";
-      #   domain = "nextcloud.${hostDomain}";
-      #   dataPath = "/mnt/storage/backup/nextcloud";
-      # };
+      nextcloud = {
+        port =  9020;
+        domain = "nextcloud.${hostDomain}";
+        dataPath = "/mnt/storage/backup/nextcloud";
+      };
     };
   };
 }

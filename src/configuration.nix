@@ -19,9 +19,10 @@
       ./dns.nix
       ./ca.nix
       ./acme.nix
-      ./monitoring.nix
+      ./prometheus.nix
+      ./grafana.nix
       ./vscode-server.nix
-      # ./nextcloud.nix
+      ./nextcloud.nix
     ];
 }
 

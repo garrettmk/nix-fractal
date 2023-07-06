@@ -3,11 +3,6 @@
 let
   fractal = config.fractal;
 in {
-  # Add our CA root certificate to the trust store
-  security.pki.certificateFiles = [
-    ./pki/roots.pem
-  ];
-
   # Set up the ACME client to work with the CA
   security.acme = {
     acceptTerms = true;
@@ -28,7 +23,6 @@ in {
   services.nginx = {
     virtualHosts = {
       "acme.${fractal.hostDomain}" = {
-        serverName = "_";
         serverAliases = [ "*.${fractal.hostDomain}" ];
         # Match all subdomains *except* ca.xxx.xxx
         # serverAliases = [ "~^(?!ca\.).+\.${fractal.hostName}\.${fractal.hostTLD}$" ];
