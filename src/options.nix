@@ -44,7 +44,7 @@ in {
       grafana = {
         port = 9010;
         domain = "grafana.${hostDomain}";
-        dataPath = "${dataPath}/grafana";
+        dataPath = "/mnt/storage/backup/grafana";
       };
 
       pihole = {
@@ -63,7 +63,12 @@ in {
       invidious = {
         port = 9030;
         domain = "invidious.nix-fractal.home";
-        
+      };
+
+      paperless = {
+        port = 9040;
+        domain = "paperless.nix-fractal.home";
+        dataPath = "/mnt/storage/backup/paperless";
       };
     };
   };

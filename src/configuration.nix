@@ -24,6 +24,7 @@
       ./vscode-server.nix
       ./nextcloud.nix
       ./invidious.nix
+      ./paperless.nix
     ];
 }
 
