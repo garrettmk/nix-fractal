@@ -23,6 +23,7 @@
       ./grafana.nix
       ./vscode-server.nix
       ./nextcloud.nix
+      ./invidious.nix
     ];
 }
 

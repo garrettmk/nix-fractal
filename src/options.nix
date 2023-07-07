@@ -59,6 +59,12 @@ in {
         domain = "nextcloud.${hostDomain}";
         dataPath = "/mnt/storage/backup/nextcloud";
       };
+
+      invidious = {
+        port = 9030;
+        domain = "invidious.nix-fractal.home";
+        
+      };
     };
   };
 }

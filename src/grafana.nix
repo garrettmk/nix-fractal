@@ -2,7 +2,6 @@
 
 let
   fractal = config.fractal;
-  stateVersion = config.system.stateVersion;
 in {
 
   environment.systemPackages = with pkgs; [
