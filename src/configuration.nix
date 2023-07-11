@@ -16,7 +16,7 @@
       ./users.nix
       ./storage.nix
       ./networking.nix
-      ./dns.nix
+      ./pihole.nix
       ./ca.nix
       ./acme.nix
       ./prometheus.nix

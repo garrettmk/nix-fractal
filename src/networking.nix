@@ -32,6 +32,11 @@ in {
       allowedTCPPorts = [ 80 443 ];
       allowedUDPPorts = [];
     };
+
+    hosts = {
+      "192.168.0.11" = [ "caladan.home" ];
+      ${fractal.hostIp} = [ fractal.hostDomain ];
+    };
   };
 
   # nginx
