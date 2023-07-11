@@ -25,6 +25,7 @@
       ./nextcloud.nix
       ./invidious.nix
       ./paperless.nix
+      ./gitea.nix
     ];
 }
 

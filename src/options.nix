@@ -70,6 +70,12 @@ in {
         domain = "paperless.nix-fractal.home";
         dataPath = "/mnt/storage/backup/paperless";
       };
+
+      gitea = {
+        port = 9050;
+        domain = "gitea.nix-fractal.home";
+        dataPath = "/mnt/storage/backup/gitea";
+      };
     };
   };
 }
