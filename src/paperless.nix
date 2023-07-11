@@ -8,7 +8,7 @@ in {
     paperless-ngx
   ];
 
-  environment.noXlibs = true;
+  environment.noXlibs = false;
 
   services.paperless = {
     enable = true;
@@ -17,7 +17,13 @@ in {
     passwordFile = "${fractal.secretsPath}/paperless-password";
   };
 
+  networking.hosts = {
+    "${fractal.hostIp}" = [ fractal.paperless.domain ];
+  };
+
   services.nginx.virtualHosts.${fractal.paperless.domain} = {
+    forceSSL = true;
+    enableACME = true;
     locations = {
       "/" = {
         proxyPass = "http://localhost:${toString fractal.paperless.port}";
