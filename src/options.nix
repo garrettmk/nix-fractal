@@ -76,6 +76,43 @@ in {
         domain = "gitea.nix-fractal.home";
         dataPath = "/mnt/storage/backup/gitea";
       };
+
+      mullvad = {
+        wg-quick = {
+          interfaces = {
+            wg0 = {
+              address = [ "10.67.48.31/32" "fc00:bbbb:bbbb:bb01::4:301e/128" ];
+              dns = [ "100.64.0.31" ];
+              privateKeyFile = "${secretsPath}/mullvad-private-key";
+
+              # postUp = ''
+              #   ${pkgs.iptables}/bin/iptables -I OUTPUT ! -o %i -m mark ! --mark $(${pkgs.wireguard-tools}/bin/wg show %i fwmark) -m addrtype ! --dst-type LOCAL -j REJECT && ${pkgs.iptables}/bin/ip6tables -I OUTPUT ! -o %i -m mark ! --mark $(${pkgs.wireguard-tools}/bin/wg show %i fwmark) -m addrtype ! --dst-type LOCAL -j REJECT
+              # '';
+
+              # preDown = ''
+              #   ${pkgs.iptables}/bin/iptables -D OUTPUT ! -o %i -m mark ! --mark $(${pkgs.wireguard-tools}/bin/wg show %i fwmark) -m addrtype ! --dst-type LOCAL -j REJECT && ${pkgs.iptables}/bin/ip6tables -D OUTPUT ! -o %i -m mark ! --mark $(${pkgs.wireguard-tools}/bin/wg show %i fwmark) -m addrtype ! --dst-type LOCAL -j REJECT
+              # '';
+
+              peers = [
+                {
+                  publicKey = "/iivwlyqWqxQ0BVWmJRhcXIFdJeo0WbHQ/hZwuXaN3g=";
+                  allowedIPs = [ "0.0.0.0/0" "::0/0" ];
+                  endpoint = "193.32.127.66:51820";
+                  persistentKeepalive = 25;
+                }
+              ];
+            };
+          };
+        };
+      };
+
+      radarr = {
+        domain = "radarr.${hostDomain}";
+        hostIp = "192.168.111.20";
+        localIp = "192.168.111.21";
+        dataPath = "/mnt/storage/backup/radarr";
+        mediaPath = "/mnt/storage/media/library/movies";
+      };
     };
   };
 }

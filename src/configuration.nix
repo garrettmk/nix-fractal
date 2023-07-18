@@ -26,6 +26,8 @@
       ./invidious.nix
       ./paperless.nix
       ./gitea.nix
+      ./mullvad.nix
+      ./radarr.nix
     ];
 }
 
