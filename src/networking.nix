@@ -7,6 +7,10 @@ in {
     dig
     openssl
     nginx
+    tcpdump
+    tshark
+    traceroute
+    tcptraceroute
   ];
 
   #

@@ -81,7 +81,7 @@ in {
         wg-quick = {
           interfaces = {
             wg0 = {
-              address = [ "10.67.48.31/32" "fc00:bbbb:bbbb:bb01::4:301e/128" ];
+              address = [ "10.66.54.175/32" "fc00:bbbb:bbbb:bb01::4:301e/128" ];
               dns = [ "100.64.0.31" ];
               privateKeyFile = "${secretsPath}/mullvad-private-key";
 
@@ -95,9 +95,9 @@ in {
 
               peers = [
                 {
-                  publicKey = "/iivwlyqWqxQ0BVWmJRhcXIFdJeo0WbHQ/hZwuXaN3g=";
+                  publicKey = "5FZW+fNA2iVBSY99HFl+KjGc9AFVNE+UFAedLNhu8lc=";
                   allowedIPs = [ "0.0.0.0/0" "::0/0" ];
-                  endpoint = "193.32.127.66:51820";
+                  endpoint = "178.249.209.162:51820";
                   persistentKeepalive = 25;
                 }
               ];
@@ -112,6 +112,13 @@ in {
         localIp = "192.168.111.21";
         dataPath = "/mnt/storage/backup/radarr";
         mediaPath = "/mnt/storage/media/library/movies";
+      };
+
+      deluge = {
+        domain = "deluge.${hostDomain}";
+        hostIp = "192.168.111.30";
+        localIp = "192.168.111.31";
+        dataPath = "/mnt/storage/media/downloads";
       };
     };
   };
