@@ -51,7 +51,7 @@ in {
     config = { config, pkgs, ... }: {
       system.stateVersion = "23.05";
       networking.wireguard.enable = true;
-      networking.wg-quick = fractal.mullvad.wg-quick;
+      networking.wg-quick = fractal.arr.mullvad.wg-quick;
 
       environment.systemPackages = with pkgs; [
         deluged
@@ -63,21 +63,11 @@ in {
       services = {
         deluge = {
           enable = true;
-          # declarative = true;
-
-          # Need to figure out how to set the owner for the authfile
-          # authFile = "/var/lib/secrets/deluge-authfile";
           
           web = {
             enable = true;
-            port = fractal.arr.deluge.port;
             openFirewall = true;
           };
-
-          # config = {
-          #   download_location = fractal.arr.downloadPath;
-          #   share_ratio_limit = "2.5";
-          # };
         };
 
         prowlarr = {
@@ -113,7 +103,7 @@ in {
       enableACME = true;
       locations = {
         "/" = {
-          proxyPass = "http://${fractal.arr.localIp}:${toString fractal.arr.deluge.port}";
+          proxyPass = "http://${fractal.arr.localIp}:8112";
         };
       };
     };

@@ -77,35 +77,6 @@ in {
         dataPath = "/mnt/storage/backup/gitea";
       };
 
-      mullvad = {
-        wg-quick = {
-          interfaces = {
-            wg0 = {
-              address = [ "10.66.54.175/32" "fc00:bbbb:bbbb:bb01::4:301e/128" ];
-              dns = [ "100.64.0.31" ];
-              privateKeyFile = "${secretsPath}/mullvad-private-key";
-
-              # postUp = ''
-              #   ${pkgs.iptables}/bin/iptables -I OUTPUT ! -o %i -m mark ! --mark $(${pkgs.wireguard-tools}/bin/wg show %i fwmark) -m addrtype ! --dst-type LOCAL -j REJECT && ${pkgs.iptables}/bin/ip6tables -I OUTPUT ! -o %i -m mark ! --mark $(${pkgs.wireguard-tools}/bin/wg show %i fwmark) -m addrtype ! --dst-type LOCAL -j REJECT
-              # '';
-
-              # preDown = ''
-              #   ${pkgs.iptables}/bin/iptables -D OUTPUT ! -o %i -m mark ! --mark $(${pkgs.wireguard-tools}/bin/wg show %i fwmark) -m addrtype ! --dst-type LOCAL -j REJECT && ${pkgs.iptables}/bin/ip6tables -D OUTPUT ! -o %i -m mark ! --mark $(${pkgs.wireguard-tools}/bin/wg show %i fwmark) -m addrtype ! --dst-type LOCAL -j REJECT
-              # '';
-
-              peers = [
-                {
-                  publicKey = "5FZW+fNA2iVBSY99HFl+KjGc9AFVNE+UFAedLNhu8lc=";
-                  allowedIPs = [ "0.0.0.0/0" "::0/0" ];
-                  endpoint = "178.249.209.162:51820";
-                  persistentKeepalive = 25;
-                }
-              ];
-            };
-          };
-        };
-      };
-
       arr = {
         hostIp = "192.168.111.20";
         localIp = "192.168.111.21";
@@ -113,10 +84,30 @@ in {
         downloadPath = "/mnt/storage/media/downloads";
         libraryPath = "/mnt/storage/media/library";
 
+        mullvad = {
+          wg-quick = {
+            interfaces = {
+              wg0 = {
+                address = [ "10.66.54.175/32" "fc00:bbbb:bbbb:bb01::4:301e/128" ];
+                dns = [ "100.64.0.31" ];
+                privateKeyFile = "${secretsPath}/mullvad-private-key";
+
+                peers = [
+                  {
+                    publicKey = "5FZW+fNA2iVBSY99HFl+KjGc9AFVNE+UFAedLNhu8lc=";
+                    allowedIPs = [ "0.0.0.0/0" "::0/0" ];
+                    endpoint = "178.249.209.162:51820";
+                    persistentKeepalive = 25;
+                  }
+                ];
+              };
+            };
+          };
+        };
+
         deluge = {
           domain = "deluge.${hostDomain}";
           dataPath = "/mnt/storage/backup/deluge";
-          port = 8112;
         };
 
         prowlarr = {

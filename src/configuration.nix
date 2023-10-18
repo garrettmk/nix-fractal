@@ -26,7 +26,6 @@
       ./invidious.nix
       ./paperless.nix
       ./gitea.nix
-      ./mullvad.nix
       ./arr.nix
       ./jellyfin.nix
     ];
