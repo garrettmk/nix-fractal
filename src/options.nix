@@ -106,19 +106,37 @@ in {
         };
       };
 
-      radarr = {
-        domain = "radarr.${hostDomain}";
+      arr = {
         hostIp = "192.168.111.20";
         localIp = "192.168.111.21";
-        dataPath = "/mnt/storage/backup/radarr";
-        mediaPath = "/mnt/storage/media/library/movies";
+
+        downloadPath = "/mnt/storage/media/downloads";
+        libraryPath = "/mnt/storage/media/library";
+
+        deluge = {
+          domain = "deluge.${hostDomain}";
+          dataPath = "/mnt/storage/backup/deluge";
+          port = 8112;
+        };
+
+        prowlarr = {
+          domain = "prowlarr.${hostDomain}";
+        };
+
+        radarr = {
+          domain = "radarr.${hostDomain}";
+          dataPath = "/mnt/storage/backup/radarr";
+        };
+
+        sonarr = {
+          domain = "sonarr.${hostDomain}";
+          dataPath = "/mnt/storage/backup/sonarr";
+        };
       };
 
-      deluge = {
-        domain = "deluge.${hostDomain}";
-        hostIp = "192.168.111.30";
-        localIp = "192.168.111.31";
-        dataPath = "/mnt/storage/media/downloads";
+      jellyfin = {
+        domain = "jellyfin.${hostDomain}";
+        mediaPath = "/mnt/storage/media/library";
       };
     };
   };

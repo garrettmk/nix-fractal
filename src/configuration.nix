@@ -27,8 +27,8 @@
       ./paperless.nix
       ./gitea.nix
       ./mullvad.nix
-      ./radarr.nix
-      ./deluged.nix
+      ./arr.nix
+      ./jellyfin.nix
     ];
 }
 
