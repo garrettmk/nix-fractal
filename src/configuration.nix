@@ -28,6 +28,7 @@
       ./gitea.nix
       ./arr.nix
       ./jellyfin.nix
+      ./homarr.nix
     ];
 }
 

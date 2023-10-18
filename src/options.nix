@@ -129,6 +129,12 @@ in {
         domain = "jellyfin.${hostDomain}";
         mediaPath = "/mnt/storage/media/library";
       };
+
+      homarr = {
+        domain = "homarr.${hostDomain}";
+        dataPath = "/mnt/storage/backup/homarr";
+      };
+      
     };
   };
 }
