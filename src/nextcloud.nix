@@ -39,4 +39,11 @@ in {
     configureRedis = true;
     caching.apcu = false;
   };
+
+  system.activationScripts.script.text = ''
+    chown nextcloud:nextcloud ${fractal.secretsPath}/nextcloud-admin-password
+    chown nextcloud:nextcloud ${fractal.secretsPath}/nextcloud-db-password
+    mkdir -p ${fractal.nextcloud.dataPath};
+    chown -R nextcloud:nextcloud ${fractal.nextcloud.dataPath}
+  '';
 }

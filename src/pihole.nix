@@ -9,6 +9,12 @@ in {
     ${fractal.hostIp} = [ fractal.pihole.domain ];
   };
 
+  # Allow DNS requests from the network
+  networking.firewall = {
+    allowedTCPPorts = [ 53 ];
+    allowedUDPPorts = [ 53 ];
+  };
+
   # Run pihole in a podman container
   virtualisation.oci-containers.containers.pihole = {
     image = "docker.io/pihole/pihole";

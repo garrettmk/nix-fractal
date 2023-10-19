@@ -23,6 +23,11 @@ in {
     database.createDatabase = true;
   };
 
+  system.activationScripts.script.text = ''
+    mkdir -p ${fractal.gitea.dataPath}
+    chown -R gitea:gitea ${fractal.gitea.dataPath}
+  '';
+
   networking.hosts = {
     ${fractal.hostIp} = [ fractal.gitea.domain ];
   };

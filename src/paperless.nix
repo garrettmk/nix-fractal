@@ -17,6 +17,12 @@ in {
     passwordFile = "${fractal.secretsPath}/paperless-password";
   };
 
+  system.activationScripts.script.text = ''
+    chown paperless:paperless ${fractal.secretsPath}/paperless-password
+    mkdir -p ${fractal.paperless.dataPath}
+    chown -R paperless:paperless ${fractal.paperless.dataPath}
+  '';
+
   networking.hosts = {
     "${fractal.hostIp}" = [ fractal.paperless.domain ];
   };

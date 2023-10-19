@@ -23,7 +23,8 @@ in {
       hostIp = "192.168.122.19";
 
       secretsPath = "/var/lib/secrets";
-      dataPath = "/mnt/storage/backup";
+      backupPath = "/mnt/storage/backup";
+      mediaPath = "/mnt/storage/media";
 
       adminUser = {
         name = "garrett";
@@ -33,7 +34,7 @@ in {
       ca = {
         port = 9443;
         domain = "ca-nix-fractal.home";
-        dataPath = "/mnt/storage/backup/ca";
+        dataPath = "${backupPath}/ca";
       };
 
       prometheus = {
@@ -44,7 +45,7 @@ in {
       grafana = {
         port = 9010;
         domain = "grafana.${hostDomain}";
-        dataPath = "/mnt/storage/backup/grafana";
+        dataPath = "${backupPath}/grafana";
       };
 
       pihole = {
@@ -57,32 +58,32 @@ in {
       nextcloud = {
         port =  9020;
         domain = "nextcloud.${hostDomain}";
-        dataPath = "/mnt/storage/backup/nextcloud";
+        dataPath = "${backupPath}/nextcloud";
       };
 
       invidious = {
         port = 9030;
-        domain = "invidious.nix-fractal.home";
+        domain = "invidious.${hostDomain}";
       };
 
       paperless = {
         port = 9040;
-        domain = "paperless.nix-fractal.home";
-        dataPath = "/mnt/storage/backup/paperless";
+        domain = "paperless.${hostDomain}";
+        dataPath = "${backupPath}/paperless";
       };
 
       gitea = {
         port = 9050;
-        domain = "gitea.nix-fractal.home";
-        dataPath = "/mnt/storage/backup/gitea";
+        domain = "gitea.${hostDomain}";
+        dataPath = "${backupPath}/gitea";
       };
 
       arr = {
         hostIp = "192.168.111.20";
         localIp = "192.168.111.21";
 
-        downloadPath = "/mnt/storage/media/downloads";
-        libraryPath = "/mnt/storage/media/library";
+        downloadPath = "${mediaPath}/downloads";
+        libraryPath = "${mediaPath}/library";
 
         mullvad = {
           wg-quick = {
@@ -107,7 +108,7 @@ in {
 
         deluge = {
           domain = "deluge.${hostDomain}";
-          dataPath = "/mnt/storage/backup/deluge";
+          dataPath = "${backupPath}/deluge";
         };
 
         prowlarr = {
@@ -116,25 +117,25 @@ in {
 
         radarr = {
           domain = "radarr.${hostDomain}";
-          dataPath = "/mnt/storage/backup/radarr";
+          dataPath = "${backupPath}/radarr";
         };
 
         sonarr = {
           domain = "sonarr.${hostDomain}";
-          dataPath = "/mnt/storage/backup/sonarr";
+          dataPath = "${backupPath}/sonarr";
         };
       };
 
       jellyfin = {
         domain = "jellyfin.${hostDomain}";
-        mediaPath = "/mnt/storage/media/library";
+        mediaPath = "${mediaPath}/library";
       };
 
       homarr = {
         domain = "homarr.${hostDomain}";
-        dataPath = "/mnt/storage/backup/homarr";
+        dataPath = "${backupPath}/homarr";
       };
-      
+
     };
   };
 }
